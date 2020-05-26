@@ -1,0 +1,95 @@
+---
+title : Conical Curves And Contours
+date : 05/20/020
+author : Hao Li
+bibliography: biblio.bib
+---
+
+```julia
+cd("D:/animated-adventure-in-mathematics/")
+include("themes.jl");
+using Plots
+mkdir("ConicCurNContour")
+cd("ConicCurNContour/")
+```
+
+
+# A Mesh
+Consider
+$$
+f: \R^2 \rightarrow \R
+$$
+
+```julia
+xb = -3:.05:3
+yb = -3:.05:3
+zlim = [-5,5]
+
+Plots.contour!(theme_dark(),xb,yb,[x for y in yb,x in xb],title = "(x,y)->x")
+Plots.contour!(theme_dark(),xb,yb,[y for y in yb,x in xb],title = "(x,y)->y")
+```
+
+
+## z = d(<x,y>,<0,0>)
+
+Recall:
+In \(\R^2\) we can have
+$$
+d((x,y),(0,0)) =\sqrt{x^2+y^2}
+$$
+
+Plot the contour of distance form the origin:
+
+```julia
+
+m = [sqrt(x^2+y^2) for x in xb, y in yb];
+
+Plots.contour!(theme_dark(), xb,yb,m,fill = m,title = " d(<x,y>,<0,0>)=sqrt(x^2+y^2)")
+```
+
+Compare with (x,y) → x^2+y^2. Both >0,and the contour have same shape but different values
+
+```julia
+
+m = [x^2+y^2 for x in xb, y in yb];
+Plots.contour!(theme_dark(), xb,yb,m,fill = m,title = " (x^2+y^2)")
+savefig("xSqrySqr.png")
+```
+### From x^2+y^2 to x^2-y^2
+
+Consider
+$$
+x^2+a*y^2;a\geq -2;a \leq 2
+$$
+
+
+```julia
+anm = @animate for a in -2:.04:2
+    m = [x^2 + a*y^2 for y in yb,x in xb]
+    Plots.contour!(theme_dark(),xb,yb,m,fill = m,title = "Contour of x^2+$a *y^2")
+end
+gif(anm,"EllipseCircleHyperbolic.gif")
+anm
+
+
+```
+
+
+## To draw a Circle & an ellipse from a String
+
+```julia
+theta = range(0,2*pi,length = 100)
+anm = @animate for i in 2:length(theta)
+    Plots.plot!(theme_dark(),cos.(theta[1:i]),sin.(theta[1:i]),xlim = (-1.5,1.5),ylim = (-1.5,1.5))
+    Plots.plot!([0,cos(theta[i])],[0,sin(theta[i])],title = "a Circle")
+end
+gif(anm,"drawCircle.gif")
+
+```
+
+
+
+
+```julia
+cd("D:/animated-adventure-in-mathematics/")
+```
