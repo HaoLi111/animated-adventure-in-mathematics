@@ -1,6 +1,8 @@
 # animated-adventure-in-mathematics
 Math illustrations and animations with Plots.jl, covering a number of plots from High School mathematics to Calculous and Linear algebra.
 
+This is a work in progress, and some codes and plots are not perfect. That says, feel free to make any pull requests and give suggestions via Issues. Thanks！
+
 
 # I want to use the content directly
 Go to the content folders for rendered plot files, or use the HTML file or PDF files generated from here:
