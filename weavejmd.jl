@@ -1,14 +1,25 @@
 using Weave
-cd("D:/visjl/")
+
+cd("D:/animated-adventure-in-mathematics/")
 
 
-documentsList = ["ElementaryFnTrans.jmd","ConicalCurvesNContours.jmd","ParametricSurfaces.jmd","RandomPts.jmd"]
-err = []
-for i in documentsList
+documentsList = ["ElementaryFnTrans"
+    "ConicalCurvesNContours"
+    "ParametricSurfaces"
+    "RandomPts"]
+documentInList = documentsList.*".jmd"
+documentOutList = documentsList.*".md"
+documentOutList2 = documentsList.*".html"
+documentOutList3 = documentsList.*".pdf"
+
+for i in 1:length(documentsList)
+    err = []
     try
     print("Generating document:"*i)
     cd("D:/visjl/")
-    weave(i)
+    weave(documentInList[1],doctype = "github",fig_path = documentInList[1])
+    weave(documentInList[i],doctype = "pandoc2pdf")
+    weave(documentInList[i],doctype = "pandoc2html")
     catch 
         err
     end

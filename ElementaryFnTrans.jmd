@@ -13,11 +13,11 @@ bibliography: biblio.bib
 
 ```julia
 
-cd("D:/animated-adventure-in-mathematics/")
+#cd("D:/animated-adventure-in-mathematics/")
 include("themes.jl");
 using Plots
-mkdir("ElemFnTrans")
-cd("ElemFnTrans/")
+#mkdir("ElemFnTrans")
+doc_dir = "ElemFnTrans/"
 ```
 x->x+1
 x->2*x-1
@@ -30,7 +30,7 @@ p=Plots.plot!(theme_dark(),x->x,xlim = (-3,3))
 p=Plots.plot!(p,x->x+1)
 p=Plots.plot!(p,x->2*x-1)
 p=Plots.plot!(p,x->(1/2*x+2))
-savefig("linearFunctions.png")
+#savefig("/linearFunctions.png")
 p
 ```
 
@@ -45,7 +45,7 @@ p = Plots.plot!(theme_dark(),size = [1200,1200],xlims = [-1,1])
     Plots.plot!(x-> x*a,key=false)
 end
 p = Plots.title!("y=ax, a∈[-2,2]")
-savefig(p,"linearGradients.png")
+#savefig(p,doc_dir*"/linearGradients.png")
 p
 ```
 
@@ -60,7 +60,7 @@ anm = @animate for a in -2:.05:2
     a=round(a,digits=3)
     Plots.title!("y = $a *x")
 end
-gif(anm,"linearGradients.gif")
+#gif(anm,doc_dir*"/linearGradients.gif")
 
 
 ```
@@ -75,7 +75,7 @@ p = Plots.plot!(theme_dark(),size = [1200,1200],xlims = [-1,1])
     Plots.plot!(x-> x+a,key=false)
 end
 p = Plots.title!("y=x+a, a∈[-2,2]")
-savefig(p,"linearIntercepts.png")
+#savefig(p,doc_dir*"/linearIntercepts.png")
 p
 ```
 For a ∈ [-2,2], plot f:x→x+a
@@ -89,7 +89,7 @@ anm = @animate for a in -2:.05:2
     a=round(a,digits=3)
     Plots.title!("y = x+$a")
 end
-gif(anm,"linearIntercepts.gif")
+#gif(anm,doc_dir*"/linearIntercepts.gif")
 
 ```
 
@@ -114,7 +114,7 @@ for i in 1:25
     Plots.plot!(x->x^2/i)
 end
 Plots.title!("x-> (1/ i) *(x^2);i in 1:25")
-savefig(p2,"xSqrDivByi.png")
+#savefig(p2,doc_dir*"/xSqrDivByi.png")
 p2
 ```
 
@@ -124,7 +124,7 @@ for i in 1:25
     Plots.plot!(x->-x^2/i)
 end
 Plots.title!("x->  - (1/ i) *(x^2);i in 1:25")
-savefig(p2,"-xSqrDivByi.png")
+#savefig(p2,doc_dir*"/-xSqrDivByi.png")
 p2
 ```
 
@@ -136,7 +136,7 @@ anm = @animate for i in 1:25
     Plots.plot!(x->x^2/i)
     Plots.title!("x-> (1/ $i) *(x^2)")
 end
-gif(anm,"xSqrDivByi.gif")
+#gif(anm,doc_dir*"/xSqrDivByi.gif")
 ```
 ## 2 Pts soln.
 
@@ -148,7 +148,7 @@ anm = @animate for x0 in -2:.05:2
     Plots.plot!(x-> x*(x-x0))
     Plots.title!("x-> x*(x-x0)")
 end
-savefig(anm,"quadxIntercepts.png")
+#savefig(anm,doc_dir*"/quadxIntercepts.png")
 ```
 
 ```julia
@@ -158,7 +158,7 @@ anm = @animate for x0 in -2:.05:2
     Plots.title!("x-> x*(x-x0)")
     Plots.vline!(x0/2)
 end
-gif(anm,"quadxIntercepts.gif")
+#gif(anm,doc_dir*"/quadxIntercepts.gif")
 
 ```
 
@@ -173,7 +173,7 @@ p3 = Plots.plot(theme_dark();xlims = (-1.5,1.5))
 for i in .1:.1:4
     p3 = Plots.plot!(p3,x->x^i)
 end
-savefig(p3,"Powers.png")
+#savefig(p3,"Powers.png")
 p3
 ```
 ## Exponential Functions, Derivatives and Fractional Derivatives
