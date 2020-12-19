@@ -1,0 +1,157 @@
+---
+author: "Hao Li"
+title: "ParametricSurface"
+date: "05/25/020"
+bibliography: "biblio.bib"
+---
+```julia
+cd("D:/animated-adventure-in-mathematics/ParametricSurfaces")
+include("D:/animated-adventure-in-mathematics/themes.jl");
+using Plots
+
+gr()
+```
+
+```
+Plots.GRBackend()
+```
+
+
+
+```julia
+#using Pkg#;Pkg.add("PlotlyJS")
+#Pkg.add("PlotlyJS")
+#Pkg.add("ORCA")
+#Pkg.add("WebIO")
+#using WebIO, IJulia
+#WebIO.install_jupyter_labextension()
+```
+
+
+
+
+
+## Sphere
+$$x^2+y^2+z^2=1$$
+
+```julia
+pyplot()            #gr currently does not work May 25 2020
+u = range(0,2*π,length =100);u=collect(u);
+v = range(0,π,length = 100);v=collect(v);
+
+x = [cos(ui)*sin(vi) for ui in u, vi in v];
+y = [sin(ui)*sin(vi) for ui in u, vi in v]
+z = [cos(vi) for ui in u, vi in v]
+
+surface!(theme_default(),x,y,z,title="x^2+y^2+z^2=1",alpha=.9)
+savefig("sphere.png")
+```
+
+
+
+
+
+
+## Paraboloid
+
+$$z = x^2+y^2$$
+
+```julia
+gr()
+x = collect(-2.5:.01:2.5);y=x;
+surface!(theme_default(),x,y,[xi^2+yi^2 for xi in x, yi in y];alpha= .9,title = "z = x^2+y^2")
+savefig("paraboloid.png")
+```
+
+
+
+
+
+## Hyperbolic Paraboloid
+
+$$z = -x^2+y^2$$
+
+```julia
+surface!(theme_default(),x,y,[-xi^2+yi^2 for xi in x, yi in y]',α= .9,title =" z = -x^2+y^2" )
+
+savefig("hyperbolicParaboloid.png")
+```
+
+
+
+
+## Cone
+### General
+$$\frac{z^2}{c^2}= \frac{x^2}{a^2} + \frac{y^2}{b^2}$$
+### Plot
+$$z^2 = x^2+y^2$$
+$$z_+ = \sqrt{(x^2+y^2)}$$
+$$z_- = \sqrt{(x^2+y^2)}$$
+
+```julia
+x = collect(-2.5:.01:2.5);y=x;
+p1 = surface!(theme_default(),x,y,[sqrt(xi^2+yi^2) for xi in x, yi in y]',α= .9);
+p1 = surface!(p1,x,y,[-sqrt(xi^2+yi^2) for xi in x, yi in y]',α= .6,title = "z^2=x^2+y^2")
+savefig("cone.png")
+```
+
+
+
+
+## Hyperboloid of 2 sheets
+### General form
+$$-\frac{x^2}{a^2}-\frac{y^2}{b^2}+\frac{z^2}{c^2}=1$$
+### Plot shown
+$$-x^2 -y^2 +z^2=1$$
+$$x^2 +y^2 =z^2-1$$
+
+
+```julia
+f(x,y) = sqrt(+x^2+y^2+1)
+p2=surface!(theme_default(),x,y,[f(xi,yi) for  yi in y,xi in x],α= .9)
+surface!(p2,x,y,[-f(xi,yi) for xi in x, yi in y],α= .6,title = "-x^2-y^2+z^2=1")
+savefig("hyperboloid2shts.png")
+```
+
+
+
+
+
+## Hyperboloid of 1 sheet
+$$x^2+y^2-z^2=1$$
+
+```julia
+gr()
+u = range(0,2*π,length =100);u=collect(u);
+z = collect(-3:.2:3)
+x = [cos(ui)*sqrt(zi ^2 +1) for ui in u, zi in z];
+y = [sin(ui)*sqrt(zi ^2 +1) for ui in u, zi in z];
+z=[zi  for ui in u, zi in z];
+surface!(theme_default(),x,y,z,title="x^2+y^2-z^2=1")#,face_colors = z,alpha=.9)
+```
+
+```
+Error: MethodError: Cannot `convert` an object of type RecipesPipeline.Surf
+ace{Array{Float64,2}} to an object of type Array{Float64,1}
+Closest candidates are:
+  convert(::Type{Array{T,N}}, !Matched::StaticArrays.SizedArray{S,T,N,M} wh
+ere M) where {T, S, N} at C:\Users\lhrcp\.julia\packages\StaticArrays\LJQEe
+\src\SizedArray.jl:72
+  convert(::Type{Array{T,1}}, !Matched::AbstractRange{T}) where T<:Real at 
+C:\Users\lhrcp\.julia\packages\Plots\V8QVi\src\utils.jl:296
+  convert(::Type{Array{T,1}}, !Matched::AbstractRange{S}) where {T<:Real, S
+<:Real} at C:\Users\lhrcp\.julia\packages\Plots\V8QVi\src\utils.jl:297
+  ...
+```
+
+
+
+```julia
+cd("D:/animated-adventure-in-mathematics/")
+```
+
+
+
+
+## Reference
+[1]Stewart, J. (2010). Multivariable calculus. Mason, OH: Cengage.
