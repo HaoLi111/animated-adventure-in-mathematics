@@ -3,23 +3,29 @@ using Weave
 cd("D:/animated-adventure-in-mathematics/")
 
 
-documentsList = ["ElementaryFnTrans"
-    "ConicalCurvesNContours"
-    "ParametricSurfaces"
-    "RandomPts"]
-documentInList = documentsList.*".jmd"
-documentOutList = documentsList.*".md"
-documentOutList2 = documentsList.*".html"
-documentOutList3 = documentsList.*".pdf"
+documentsListRaw = ["ElementaryFnTrans",
+    "ConicalCurvesNContours",
+    "ParametricSurfaces",
+    "RandomPts",
+    "TrigFnNTransformations"]
+documentInList = documentsListRaw.* "/" .* documentsListRaw.*".jmd"
+formats = ["github",
+            "md2pdf"][1]#,
+            #"pandoc2html"]
 
-for i in 1:length(documentsList)
-    err = []
+for i in 1:length(documentInList)#, j in formats
+    
+    
+    j = "github"
+    
+    err = ""
+
     try
-    print("Generating document:"*i)
-    cd("D:/visjl/")
-    weave(documentInList[1],doctype = "github",fig_path = documentInList[1])
-    weave(documentInList[i],doctype = "pandoc2pdf")
-    weave(documentInList[i],doctype = "pandoc2html")
+    print("Generating document:"*documentInList[i]*",$j \n")
+
+    cd("D:/animated-adventure-in-mathematics/"*documentsListRaw[i])
+    
+    weave(documentsListRaw[i]*".jmd",doctype = j)#,fig_path = documentsList[i])
     catch 
         err
     end
