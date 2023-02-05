@@ -27,7 +27,7 @@ p=plotValongCycle!(p,f,g,r=1,center = (0.0,0.0);s=.3)
 👾 = DynSpace(tuple('x'=>-5:1:5,'y'=>ybase_c),tuple('C'=>[1]))
 
 F(X,K) = K[1]*[f(X[1],X[2]), g(X[1],X[2])]
-δt = .0001
+δt = .001
 ϕ(X,K) = dyn_grad_Euler(X,K,F,δt)
 
 @time result = dyn_collect(👾,ϕ,n=2000)
@@ -40,3 +40,4 @@ plotTrajectoryMatrix!(plot(legend=false,colorbar = true),result[:,:,1])
 p=plotMultipleTrajectoryMatrix!(plot!(p,legend=false,colorbar = true,xlims = (-5,5),ylims = (-5,5)),result[:,:,:])
 
 savefig("DynPlots.png")
+p
